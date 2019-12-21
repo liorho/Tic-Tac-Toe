@@ -17,12 +17,27 @@ class Game:
         else:
             self.player2.set_symbol('X')
 
-    def check_if_game_over(self):
-        pass
+    def check_winner(self):
+        self.board.check_rows()
+        self.board.check_columns()
+        self.board.check_diagonals()
+        if self.board.winner_symbol:
+            print("**** GAME OVER ****")
+            if self.player1.symbol == self.board.winner_symbol:
+                print(f"** {self.player1.name} is the winner **")
+            else:
+                print(f"** {self.player2.name} is the winner **")
+            self.is_game_still_on = False
 
-
+    def check_tie(self):
+        self.board.check_full_board()
+        if self.board.is_board_full:
+            print("**** GAME OVER ****")
+            print("** It's a tie **")
+            self.is_game_still_on = False
 
     def play_game(self):
+        print("*** LETS PLAY TIC-TAC-TOE ***")
         self.init_players()
         self.board.init_board()
         self.board.display_board()
@@ -32,5 +47,7 @@ class Game:
             self.player1.toggle_turn()
             self.player2.toggle_turn()
             self.board.display_board()
-            self.check_if_game_over()
-        print('BYE BYE')
+            self.check_winner()
+            if not self.is_game_still_on:
+                break
+            self.check_tie()

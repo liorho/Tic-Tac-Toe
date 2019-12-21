@@ -11,13 +11,13 @@ class Player:
 
     def set_name(self, name=None):
         if name is None:
-            self.name = input("Hi! Insert your name: ")
+            self.name = input("Insert your name: ")
         else:
             self.name = name
 
     def set_symbol(self, symbol=None):
         if symbol is None:
-            self.symbol = input("Please insert what symbol would you like to play (X or O): ")
+            self.symbol = input("Insert what symbol would you like to play (X or O): ")
             while self.symbol != 'X' and self.symbol != 'O':
                 self.symbol = input("Wrong action! You need to pick X or O:  ")
         else:
