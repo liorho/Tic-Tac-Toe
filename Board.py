@@ -1,7 +1,6 @@
 class Board:
     def __init__(self):
         self.board = []
-        self.winner_symbol = None
         self.is_board_full = False
 
     def init_board(self):
@@ -41,23 +40,33 @@ class Board:
         for row in self.board:
             if row[0] == row[1] and row[1] == row[2]:
                 if row[0] != '-':
-                    self.winner_symbol = row[0]
+                    return row[0]
 
     def check_columns(self):
         board = self.board
         for i in range(0,3):
             if board[0][i] == board[1][i] and board[1][i] == board[2][i]:
                 if board[0][i] != '-':
-                    self.winner_symbol = board[0][i]
+                    return board[0][i]
 
     def check_diagonals(self):
         board = self.board
         if board[0][0] == board[1][1] and board[1][1] == board[2][2]:
             if board[0][0] != '-':
-                self.winner_symbol = board[0][0]
+                return board[0][0]
         if board[0][2] == board[1][1] and board[1][1] == board[2][0]:
             if board[0][2] != '-':
-                self.winner_symbol = board[0][2]
+                return board[0][2]
+
+    def check_sequence(self):
+        winner_symbol = [0]*3
+        winner_symbol[0] = self.check_rows()
+        winner_symbol[1] = self.check_columns()
+        winner_symbol[2] = self.check_diagonals()
+        for symbol in winner_symbol:
+            if symbol:
+                return symbol
+        return None
 
     def check_full_board(self):
         self.is_board_full = True

@@ -7,6 +7,7 @@ class Game:
         self.board = Board()
         self.player1 = Player('human', True, self.board)
         self.player2 = Player('computer', False, self.board)
+        self.winner_symbol = None
 
     def init_players(self):
         self.player1.set_name()
@@ -18,12 +19,10 @@ class Game:
             self.player2.set_symbol('X')
 
     def check_winner(self):
-        self.board.check_rows()
-        self.board.check_columns()
-        self.board.check_diagonals()
-        if self.board.winner_symbol:
+        self.winner_symbol = self.board.check_sequence()
+        if self.winner_symbol:
             print("**** GAME OVER ****")
-            if self.player1.symbol == self.board.winner_symbol:
+            if self.player1.symbol == self.winner_symbol:
                 print(f"** {self.player1.name} is the winner **")
             else:
                 print(f"** {self.player2.name} is the winner **")
